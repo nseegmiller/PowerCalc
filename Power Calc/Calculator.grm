@@ -1,0 +1,79 @@
+"Name"     = 'Power Calc Grm'
+"Author"   = 'Nick Seegmiller'
+"Version"  = '1.0'
+"About"    = 'Basic Calculator Parser'
+
+"Start Symbol" = <Assign>
+
+! ------------------------------------------------- Sets
+
+
+! ------------------------------------------------- Terminals
+
+Integer         =   {Digit}+
+Pi              =   'pi'
+Exp             =   'e'
+Float           =   {Digit}+ '.' {Digit}+
+FloatNo0        =   '.' {Digit}+
+Variable        =   '$' {Digit}+
+Binary          =   '0b' [01]+
+Hexadecimal     =   '0x' [0123456789ABCDEFabcdef]+
+Octal           =   '0o' [01234567]+
+Identifier      =   {Letter}{AlphaNumeric}*
+
+! ------------------------------------------------- Rules
+
+<Assign>    ::= 'set' Identifier '=' <Expression>
+        |   'set' Identifier '(' <Variable List> ')' '=' <Expression>
+        |   <Expression>
+
+<Variable List> ::= <Variable List> ';' Identifier
+        |   Identifier
+
+<Expression>    ::= <Expression> '+' <Mult Expr>
+        |   <Expression> '-' <Mult Expr>
+        |   <Mult Expr> 
+
+<Mult Expr> ::= <Mult Expr> '*' <Negate Expr>
+        |   <Mult Expr> '/' <Negate Expr> 
+        |   <Negate Expr> 
+
+<Negate Expr>   ::= '-' <Expon> 
+        |   <Expon> 
+
+<Expon> ::= <Value> '^' <Value>
+        |   <Value>
+
+<Value> ::=     <Number>
+        |   '(' <Expression> ')'
+        |   'abs' '(' <Expression> ')'
+        |   'acos' '(' <Expression> ')'
+        |   'asin' '(' <Expression> ')'
+        |   'atan' '(' <Expression> ')'
+        |   'cos' '(' <Expression> ')'
+        |   'cosh' '(' <Expression> ')'
+        |   'log' '(' <Expression> ')'
+        |   'log10' '(' <Expression> ')'
+        |   'sin' '(' <Expression> ')'
+        |   'sinh' '(' <Expression> ')'
+        |   'sqrt' '(' <Expression> ')'
+        |   'tan' '(' <Expression> ')'
+        |   'tanh' '(' <Expression> ')'
+        |   'bin' '(' <Expression> ')'
+        |   'hex' '(' <Expression> ')'
+        |   'oct' '(' <Expression> ')'
+        |   Identifier '(' <Expression List> ')'
+
+<Expression List>   ::= <Expression List> ';' <Expression>
+        |   <Expression>
+
+<Number>    ::= Integer
+        |   Float
+        |   FloatNo0
+        |   Pi
+        |   Exp
+        |   Variable
+        |   Binary
+        |   Hexadecimal
+        |   Octal
+        |   Identifier
