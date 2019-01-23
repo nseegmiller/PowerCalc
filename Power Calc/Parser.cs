@@ -455,7 +455,15 @@ namespace Parsing
                         }
                         // Remove the unnessary stuff from the number
                         ans = ans.Substring(ans.IndexOf("= ") + 2);
-                        return new Result(Convert.ToDouble(ans), Str(0));
+                        try
+                        {
+                            return new Result(Convert.ToDouble(ans), Str(0));
+                        }
+                        catch (FormatException)
+                        {
+                            error = String.Format("ERROR: \"{0}\" is a string value.", ans.Trim());
+                            return new Result(Convert.ToDouble("NaN"), Str(0));
+                        }
                     }
                     else if (m_variables.ContainsKey(Str(0)))
                     {
