@@ -20,4 +20,4 @@ The following features are supported
 |Trignometric Functions|`acos(x)`, `asin(x)`, `atan(x)`, `cos(x)`, `cosh(x)`, `log(x)`, `log10(x)`, `sin(x)`, `sinh(x)`, , `tan(x)`, `tanh(x)`|
 
 # Building
-Open the solution file in Visual Studio 2017 and click build. That's it!
+Open the solution file in Visual Studio and click build. That's it!
